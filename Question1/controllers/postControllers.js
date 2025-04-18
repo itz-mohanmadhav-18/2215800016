@@ -68,7 +68,7 @@ export async function getPosts(req, res) {
 }
 export async function getPostComments(req, res) {
     try {
-      // Use Number() to ensure postId is treated as a number
+ 
       let postId = Number(req.params.postId)
       
       // Get token
@@ -91,8 +91,7 @@ export async function getPostComments(req, res) {
         global.token = myToken
         global.tokenTime = authRes.data.expires_in * 1000
       }
-      
-      // Get comments for this post directly from the API
+
       console.log(`Fetching comments for post ID: ${postId}`)
       let response = await axios.get(`${BASE_URL}/posts/${postId}/comments`, {
         headers: {
@@ -100,12 +99,9 @@ export async function getPostComments(req, res) {
         }
       })
       
-      // Check if response has the expected structure
+   
       if (response.data && response.data.comments) {
         res.json(response.data)
-      } else {
-        // If the API response is unexpected, try an alternative format
-        res.json({ comments: response.data || [] })
       }
     } catch (err) {
       console.log('error getting post comments', err.message)
