@@ -7,13 +7,13 @@ const api = axios.create({
   timeout: 10000,
 });
 
-// Log requests for debugging
+
 api.interceptors.request.use(request => {
   console.log('Starting API request to:', request.url);
   return request;
 });
 
-// Log responses
+
 api.interceptors.response.use(
   response => {
     console.log('API response from:', response.config.url, response.data);
